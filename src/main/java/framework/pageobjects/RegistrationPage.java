@@ -1,11 +1,17 @@
 package framework.pageobjects;
 
+import framework.BasePage;
+import framework.config.Browser;
+import framework.model.entity.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class RegistrationPage {
+public class RegistrationPage extends BasePage {
 
+    final private static RegistrationPage instance = new RegistrationPage();
+
+    public static RegistrationPage getInstance() {return  instance;}
     @FindBy(id = "id_gender")
     private WebElement maleRadioButton;
 
@@ -81,7 +87,19 @@ public class RegistrationPage {
     @FindBy(id = "submitAccount")
     private WebElement submitButton;
 
-    public void fillForm(){
+    public RegistrationPage() {
+        Browser.openPage(this);
+    }
 
+    public void fillForm(User user){
+        clickCheckbox(maleRadioButton, true);
+        sendDataToField(customerFirstName, user.getCustomerFirstName());
+        sendDataToField(customerLastName, user.getCustomerLastName());
+        sendDataToField(company, user.getCompany());
+        sendDataToField(firstAdressPart,user.getFirstAddressPart());
+        sendDataToField(secondAdressPart,user.getSecondAddressPart());
+        sendDataToField(city,user.getCity());
+        sendDataToSelect(state,user.getEState().toString());
+        submitButton.click();
     }
 }

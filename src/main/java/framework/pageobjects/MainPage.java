@@ -1,11 +1,15 @@
 package framework.pageobjects;
 
 import framework.BasePage;
+import framework.config.Browser;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class MainPage extends BasePage {
+    final private static MainPage instance = new MainPage();
+
+    public static MainPage getInstance() {return  instance;}
 
     @FindBy(className = "header_user_info")
     private WebElement signInButton;
@@ -28,6 +32,10 @@ public class MainPage extends BasePage {
     @FindBy(xpath = "//button[@name=\"submitNewsletter\"]")
     private WebElement submitNewsleterButton;
 
+    public MainPage() {
+        Browser.openPage(this);
+    }
+
     public void openCart() {
         shoppingCartButton.sendKeys(Keys.ENTER);
     }
@@ -35,5 +43,9 @@ public class MainPage extends BasePage {
     public void search(String seatchValue) {
         searchField.sendKeys(seatchValue);
         searchButton.sendKeys(Keys.ENTER);
+    }
+
+    public void clickSignInButton() {
+        signInButton.sendKeys(Keys.ENTER);
     }
 }

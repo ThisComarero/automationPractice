@@ -32,7 +32,8 @@ public class LoginPage extends BasePage {
     private WebElement errorMessage;
 
     public void createAccount() {
-
+        registrationEmailInput.sendKeys("zonujotas@zdfpost.net");
+        submitCreateButton.sendKeys(Keys.ENTER);
     }
 
     public void logIn() {
